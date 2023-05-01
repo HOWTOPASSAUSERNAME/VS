@@ -10,31 +10,37 @@ namespace Employee.Practice
     {
         static void Main(string[] args)
         {
-            Employee[] kai = EmpBuilder.Create()
-                .SetName("Kai", "Lin")
-                .SetEmail("solarsido@gmail.com")
-                .Address("台灣",700,"台南市","中華西路一段111號")
-                .SetGender(true)
-                .Build();
+            Employee emp = EmpBuilder.Create()
+                .SetName("Allen","Kuo").Build();
 
-            
+            Console.WriteLine(emp.FirstName);
         }
     }
 
     public class Employee
     {
-        public string FirstName {
-            get
-            {
-                return FirstName;
-            }
+
+        public Employee(EmpBuilder builder)
+        {
+            // todo 擷取builder的資料, 檢查資料是否正確
+            // ...
+            if (string.IsNullOrEmpty(builder.FirstName)) { throw new Exception("NULL"); }
+
+
+            // 設定到Employee的屬性上
+            this.FirstName = builder.FirstName;
+            this.LastName = builder.LastName;
+            this.Email = builder.Email;
+            this.Gender = builder.Gender;
+            this.Address = builder.Address; 
+            this.Gender = builder.Gender;
+            this.City = builder.City;
+            this.PostalCode = builder.PostalCode;
+            this.Country = builder.Country;
                 
-            set
-            {
-                if (string.IsNullOrEmpty(value)) { throw new ArgumentNullException("Null,請重新輸入"); }
-                FirstName = value;
-            }
-                 }
+        }
+        public string FirstName { get; set; }
+    
         public string LastName { get; set; }
 
         public string Email { get; set; }

@@ -10,52 +10,58 @@ namespace Employee.Practice
 {
     public class EmpBuilder
     {
+        public string  FirstName { get; set; }
+        public string LastName { get; set; }
 
-        private List<Employee> _employees = new List<Employee>();
+        public string Email { get; set; }
+        public string Address { get; set; }
+        public string City { get; set; }
+        public int PostalCode { get; set; }
+        public string Country { get; set; }
+
+        public bool Gender { get; set; }
+
+
         public static EmpBuilder Create()
         {
             return new EmpBuilder();
-        } 
+        }
 
-        public EmpBuilder SetName(string lastName,string firstName)
+        public EmpBuilder SetName(string firstName,string lastName)
         {
-            var employee = new Employee() {LastName =lastName,FirstName=firstName };
-            _employees.Add(employee);
+            this.FirstName = firstName;
+            this.LastName = lastName;
+            return this;
+        }
+        public EmpBuilder SetEmail(string email) {
+            this.Email = email;
             return this;
         }
 
-        public EmpBuilder SetEmail(string email)
-        {
-            var employee = new Employee() { Email = email };
-            _employees.Add(employee);
-            return this;
+         public EmpBuilder SetAddress(string country,int postalCode,string city, string address) {
+            this.Country = country;
+            this.PostalCode = postalCode;
+            this.City = city;
+            this.Address = address;
+
+            return this;        
         }
-
-        public EmpBuilder Address(string country, int postalCode, string city, string address) {
-
-            var employee = new Employee() 
-            { 
-                Country = country
-                ,PostalCode=postalCode
-                ,City = city
-                ,Address = address
-            };
-            _employees.Add(employee);
-            return this;
-        }
-
         public EmpBuilder SetGender(bool gender)
         {
-            var employee = new Employee() { Gender = gender };
-            _employees.Add(employee);
+            this.Gender = gender;
             return this;
 
         }
-        public  Employee[]Build()
-        {
-            return _employees.ToArray();
 
+        public Employee Build() {
+
+            return new Employee(this);
         }
+
+
+
+
+
 
     }
 }
